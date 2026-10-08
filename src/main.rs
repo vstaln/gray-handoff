@@ -1,8 +1,8 @@
 //! gray-handoff — transfer context to a new focused session.
 //!
-//! Port of pi's `handoff.ts`. Every `context/build` caches the serialized
+//! Every `context/build` caches the serialized
 //! conversation (cap ~200KB, latest wins) under `~/.gray/handoff/<sid>.txt`.
-//! `/handoff <goal>` sends pi's handoff SYSTEM_PROMPT plus that cache and the
+//! `/handoff <goal>` sends a handoff system prompt plus that cache and the
 //! goal through `host/run` (capability `host.turn`) and hands back the
 //! generated prompt as text for the user to paste into a fresh `gray`
 //! session — gray's wire has no `newSession` API, so the swap is manual.
@@ -24,7 +24,7 @@ const RUN_TTL: Duration = Duration::from_secs(29);
 const CACHE_CAP: usize = 200 * 1024;
 const TOOL_RESULT_MAX_CHARS: usize = 2000;
 
-/// Ported verbatim from pi handoff.ts.
+/// Prompt template sent to `host/run` with the cached history and goal.
 const SYSTEM_PROMPT: &str = "You are a context transfer assistant. Given a conversation history and the user's goal for a new thread, generate a focused prompt that:
 
 1. Summarizes relevant context from the conversation (decisions made, approaches taken, key findings)
@@ -145,7 +145,7 @@ fn truncate_for_summary(text: &str, max_chars: usize) -> String {
     format!("{kept}\n\n[... {} more characters truncated]", n - max_chars)
 }
 
-/// `[Message]` values → pi's `[Role]: ...` text (opaque in, text out).
+/// `[Message]` values → `[Role]: ...` text (opaque in, text out).
 fn serialize_messages(messages: &[Value]) -> String {
     let mut parts: Vec<String> = Vec::new();
     for msg in messages {
