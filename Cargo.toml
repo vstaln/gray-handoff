@@ -1,0 +1,17 @@
+[package]
+name = "gray-handoff"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.91"
+license = "MIT"
+description = "Generate a focused handoff prompt for a fresh session via host/run. Port of pi's handoff."
+
+[[bin]]
+name = "gray-handoff"
+path = "src/main.rs"
+
+[dependencies]
+serde_json = "1"
+
+[profile.release]
+strip = true
