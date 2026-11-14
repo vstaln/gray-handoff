@@ -53,6 +53,7 @@ fn manifest() -> Value {
         "version": env!("CARGO_PKG_VERSION"),
         "protocol": "2.0",
         "tools": [],
+        "description": "draft",
         "commands": ["/handoff"],
         "hooks": ["context/build"],
         "capabilities": ["host.turn"],
