@@ -53,7 +53,7 @@ fn manifest() -> Value {
         "version": env!("CARGO_PKG_VERSION"),
         "protocol": "2.0",
         "tools": [],
-        "description": "draft",
+        "description": "draft a handoff prompt for a fresh session",
         "commands": ["/handoff"],
         "hooks": ["context/build"],
         "capabilities": ["host.turn"],
