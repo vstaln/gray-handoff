@@ -55,6 +55,7 @@ fn manifest() -> Value {
         "tools": [],
         "description": "draft a handoff prompt for a fresh session",
         "commands": ["/handoff"],
+        "command_descriptions": {"/handoff": "write a prompt to continue in a new session"},
         "hooks": ["context/build"],
         "capabilities": ["host.turn"],
     })
